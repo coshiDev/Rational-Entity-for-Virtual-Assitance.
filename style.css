@@ -1,0 +1,44 @@
+   body {
+        margin: 0;
+        padding: 0;
+        background: skyblue;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Container for both screens */
+    .screen {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 100%;
+        font-size: 2.5rem;
+        color: white;
+        opacity: 0;
+        animation-fill-mode: forwards;
+    }
+
+    /* Welcome screen appears first */
+    #welcome {
+        animation: fadeInOut 4s ease forwards;
+    }
+
+    /* Project title appears after 4 seconds */
+    #projectTitle {
+        animation: appear 1s ease forwards;
+        animation-delay: 4s;
+    }
+
+    /* Keyframes */
+    @keyframes fadeInOut {
+        0%   { opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+    @keyframes appear {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
