@@ -57,3 +57,11 @@ nav ul li a {
     0% { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
 }
+
+.crypto-logo {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
