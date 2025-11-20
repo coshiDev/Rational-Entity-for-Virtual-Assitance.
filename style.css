@@ -41,6 +41,10 @@ nav ul li a {
     overflow: hidden;
     white-space: nowrap;
     box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
 }
 
 #ticker-content {
@@ -50,6 +54,6 @@ nav ul li a {
 }
 
 @keyframes ticker {
-    0% { transform: translateX(0); }
+    0% { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
 }
