@@ -6,20 +6,30 @@ async function loadCryptoPrices() {
             "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether&vs_currencies=usd"
         );
 
-        const data = await response.json();
+        console.log("Fetch status:", response.status); // DEBUG
 
-        const btc = data.bitcoin.usd;
-        const eth = data.ethereum.usd;
-        const usdt = data.tether.usd;
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        console.log("Data:", data); // DEBUG
+
+        const btc = data.bitcoin?.usd;
+        const eth = data.ethereum?.usd;
+        const usdt = data.tether?.usd;
+
+        if (btc == null || eth == null || usdt == null) {
+            throw new Error("Unexpected data format");
+        }
 
         const tickerText = `Bitcoin: $${btc}   |   Ethereum: $${eth}   |   USDT: $${usdt}`;
-
         document.getElementById("ticker-content").textContent = tickerText;
 
     } catch (error) {
         document.getElementById("ticker-content").textContent =
             "Unable to load crypto prices";
-        console.log(error);
+        console.error("Error loading crypto prices:", error);
     }
 }
 
