@@ -3,6 +3,46 @@
     font-family: Arial, sans-serif;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 80px;      /* adjust size */
+    height: auto;
+}
+
+.header-center {
+    flex: 1;
+    text-align: center;
+}
+
+.header-right ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header-right ul li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.header-right ul li a {
+    text-decoration: none;
+    font-weight: 600;
+    color: black;   /* adjust color if needed */
+}
+
+
 .header-center {
     display: flex;
     flex-direction: column;
