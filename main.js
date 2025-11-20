@@ -2,35 +2,29 @@ console.log("JavaScript connected!");
 
 async function loadCryptoPrices() {
     try {
-        const response = await fetch(
-            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether&vs_currencies=usd"
-        );
+        const responses = await Promise.all([
+            fetch("https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"),
+            fetch("https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT"),
+            fetch("https://api.binance.com/api/v3/ticker/price?symbol=USDTUSDT")
+        ]);
 
-        console.log("Fetch status:", response.status); // DEBUG
+        const data = await Promise.all(responses.map(r => r.json()));
 
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-
-        const data = await response.json();
-        console.log("Data:", data); // DEBUG
-
-        const btc = data.bitcoin?.usd;
-        const eth = data.ethereum?.usd;
-        const usdt = data.tether?.usd;
-
-        if (btc == null || eth == null || usdt == null) {
-            throw new Error("Unexpected data format");
-        }
+        const btc = parseFloat(data[0].price).toFixed(2);
+        const eth = parseFloat(data[1].price).toFixed(2);
+        const usdt = "1.00"; // USDT stays $1
 
         const tickerText = `Bitcoin: $${btc}   |   Ethereum: $${eth}   |   USDT: $${usdt}`;
+
         document.getElementById("ticker-content").textContent = tickerText;
 
     } catch (error) {
         document.getElementById("ticker-content").textContent =
             "Unable to load crypto prices";
-        console.error("Error loading crypto prices:", error);
+        console.error("Error loading prices:", error);
     }
 }
 
+// Load prices immediately + refresh every 20 seconds
 loadCryptoPrices();
+setInterval(loadCryptoPrices, 20000);
